@@ -50,7 +50,7 @@ INSERT INTO `products` (`products_id`, `products_content`, `products_name`, `pro
 (9, 'skin', 'homme black perfect skin', '$55', 'skin_homme_black_perfect.png'),
 (10, 'skin', 'manisiimo intensive skin', '$45', 'skin_manisiimo_intensive.png'),
 (11, 'skin', 'nomme essence skin', '$50', 'skin_nomme_essence.png'),
-(12, 'skin', 'signia water skin', '$62', 'skin_signia_water_png'),
+(12, 'skin', 'signia water skin', '$62', 'skin_signia_water.png'),
 (13, 'eye', 'brow designer pact', '$21', 'eye_brow_designer_pact.png'),
 (14, 'eye', 'designer pencil', '$35', 'eye_designer_pencil.png'),
 (15, 'eye', 'easy styling eyeliner', '$25', 'eye_easy_styling_eyeliner.png'),

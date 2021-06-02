@@ -20,7 +20,7 @@
             </div>
           </nav>
                 <div id="common-menu">
-                    <a href="#"><img src="//0100.ga:3000/api/assets/user-alt-solid.svg" alt="user" width="25px"></a>
+                    <a href="#" v-on:click="searchTerm()" ><img src="//0100.ga:3000/api/assets/user-alt-solid.svg" alt="user" width="25px"></a>
                     <a href="#"><img src="//0100.ga:3000/api/assets/search-solid.svg" alt="search" width="25px"></a>
                     <a href="#/soppingcart"><img src="//0100.ga:3000/api/assets/shopping-cart-solid.svg" alt="shoppingcart" width="28px"></a>
                 </div>
@@ -30,9 +30,25 @@
 
 <script>
 export default {
-  props:{
-    msg: String
+  props: {msg: String},
+  name: 'Header',
+  data () {
+    return {
+      posts: []
+    }
   },
-  name: 'Header'
+  mounted () {
+    // this.searchTerm()
+  },
+  methods: {
+    searchTerm: function () {
+      // using JSONPlaceholder
+      const baseURI = '//0100.ga:3000/api/assets/logo.jpeg'
+      this.$http.get(`${baseURI}`).then((result) => {
+        console.log(result)
+        // this.posts = result.data
+      })
+    }
+  }
 }
 </script>

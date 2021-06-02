@@ -11,234 +11,75 @@
     <div class="basketdiv" id="basket">
       <div class="row head">
         <div class="subdiv">
-          <div class="check">선택</div>
-          <div class="img">이미지</div>
-          <div class="pname">상품명</div>
+          <div class="check">Check</div>
+          <div class="img">Image</div>
+          <div class="pname">Product Name</div>
         </div>
         <div class="subdiv">
-          <div class="basketprice">가격</div>
-          <div class="num">수량</div>
-          <div class="sum">합계</div>
+          <div class="basketprice">Price</div>
+          <div class="num">Quantity</div>
+          <div class="sum">Sum</div>
         </div>
         <div class="subdiv">
-          <div class="basketcmd">삭제</div>
+          <div class="basketcmd">Delete</div>
         </div>
         <div class="split"></div>
       </div>
-
-      <div class="row data">
+      <div class="row data" v-for="item in products" :key="item.products_id">
         <div class="subdiv">
           <div class="check">
-            <input
-              type="checkbox"
-              name="buy"
-              value="260"
-              checked=""
-              onclick="javascript:basket.checkItem();"
-            />&nbsp;
+            <input type="checkbox" name="buy" :value="item.products_id" checked v-model="checkedNames"/>
           </div>
           <div class="img">
             <img
-              src="//0100.ga:3000/api/assets/skin_age_away_collagenic_water.png"
+              :src="'//0100.ga:3000/api/assets/'+item.products_avatar"
               width="60"
               style="background-color: green"
             />
           </div>
           <div class="pname">
-            <span>찜마마(XJ-92214/3)</span>
+            <span>{{item.products_name}}</span>
           </div>
         </div>
         <div class="subdiv">
           <div class="basketprice">
-            <input
-              type="hidden"
-              name="p_price"
-              id="p_price1"
-              class="p_price"
-              value="20000"
-            />20,000원
+            <input type="hidden" name="p_price" id="p_price1" class="p_price" :value="item.products_price"/>{{item.products_price}}
           </div>
           <div class="num">
             <div class="updown">
-              <input
-                type="text"
-                name="p_num1"
-                id="p_num1"
-                size="2"
-                maxlength="4"
-                class="p_num"
-                value="2"
-                onkeyup="javascript:basket.changePNum(1);"
-              />
-              <span onclick="javascript:basket.changePNum(1);"
-                ><i class="fas fa-arrow-alt-circle-up up"></i
-              ></span>
-              <span onclick="javascript:basket.changePNum(1);"
-                ><i class="fas fa-arrow-alt-circle-down down"></i
-              ></span>
+              <input type="text" name="p_num1" id="p_num1" size="1" maxlength="4" class="p_num" :value="productsCount[item.products_id]" @keyup="changeValue($event, item.products_id)"/>
+              <span @click="setProductCount($event, item.products_id, 1)">
+                <i class="fas fa-arrow-alt-circle-up up"></i>
+              </span>
+              <span @click="setProductCount($event, item.products_id, -1)">
+                <i class="fas fa-arrow-alt-circle-down down"></i>
+              </span>
             </div>
           </div>
-          <div class="sum">40,000원</div>
+          <div class="sum">{{'$'+(+item.products_price.replace('$','') * productsCount[item.products_id])}}</div>
         </div>
         <div class="subdiv">
           <div class="basketcmd">
-            <a
-              href="javascript:void(0)"
-              class="abutton"
-              onclick="javascript:basket.delItem();"
-              >삭제</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="row data">
-        <div class="subdiv">
-          <div class="check">
-            <input
-              type="checkbox"
-              name="buy"
-              value="261"
-              checked=""
-              onclick="javascript:basket.checkItem();"
-            />&nbsp;
-          </div>
-          <div class="img">
-            <img src="//0100.ga:3000/api/assets/skin_aquabolic_essential_water.png" width="60" />
-          </div>
-          <div class="pname">
-            <span>노바 요거팜(JP-268T)</span>
-          </div>
-        </div>
-        <div class="subdiv">
-          <div class="basketprice">
-            <input
-              type="hidden"
-              name="p_price"
-              id="p_price2"
-              class="p_price"
-              value="19000"
-            />19,000원
-          </div>
-          <div class="num">
-            <div class="updown">
-              <input
-                type="text"
-                name="p_num2"
-                id="p_num2"
-                size="2"
-                maxlength="4"
-                class="p_num"
-                value="1"
-                onkeyup="javascript:basket.changePNum(2);"
-              />
-              <span onclick="javascript:basket.changePNum(2);"
-                ><i class="fas fa-arrow-alt-circle-up up"></i
-              ></span>
-              <span onclick="javascript:basket.changePNum(2);"
-                ><i class="fas fa-arrow-alt-circle-down down"></i
-              ></span>
-            </div>
-          </div>
-          <div class="sum">19,000원</div>
-        </div>
-        <div class="subdiv">
-          <div class="basketcmd">
-            <a
-              href="javascript:void(0)"
-              class="abutton"
-              onclick="javascript:basket.delItem();"
-              >삭제</a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="row data">
-        <div class="subdiv">
-          <div class="check">
-            <input
-              type="checkbox"
-              name="buy"
-              value="262"
-              checked=""
-              onclick="javascript:basket.checkItem();"
-            />&nbsp;
-          </div>
-          <div class="img">
-            <img src="//0100.ga:3000/api/assets/skin_homme_black_perfect.png" width="60" />
-          </div>
-          <div class="pname">
-            <span>아날도 바시니 보스톤 가방 20인치 (ab-380)</span>
-          </div>
-        </div>
-        <div class="subdiv">
-          <div class="basketprice">
-            <input
-              type="hidden"
-              name="p_price"
-              id="p_price3"
-              class="p_price"
-              value="15200"
-            />15,200원
-          </div>
-          <div class="num">
-            <div class="updown">
-              <input
-                type="text"
-                name="p_num3"
-                id="p_num3"
-                size="2"
-                maxlength="4"
-                class="p_num"
-                value="1"
-                onkeyup="javascript:basket.changePNum(3);"
-              />
-              <span onclick="javascript:basket.changePNum(3);"
-                ><i class="fas fa-arrow-alt-circle-up up"></i
-              ></span>
-              <span onclick="javascript:basket.changePNum(3);"
-                ><i class="fas fa-arrow-alt-circle-down down"></i
-              ></span>
-            </div>
-          </div>
-          <div class="sum">15,200원</div>
-        </div>
-        <div class="subdiv">
-          <div class="basketcmd">
-            <a
-              href="javascript:void(0)"
-              class="abutton"
-              onclick="javascript:basket.delItem();"
-              >삭제</a
-            >
+            <a href="javascript:void(0)" class="abutton" @click="removeProduct(item)">Delete</a>
           </div>
         </div>
       </div>
     </div>
 
     <div class="right-align basketrowcmd">
-      <a
-        href="javascript:void(0)"
-        class="abutton"
-        onclick="javascript:basket.delCheckedItem();"
-        >선택상품삭제</a
-      >
-      <a
-        href="javascript:void(0)"
-        class="abutton"
-        onclick="javascript:basket.delAllItem();"
-        >장바구니비우기</a
-      >
+      <a href="javascript:void(0)" class="abutton" @click="selectRemove()">Delete Selected Products</a>
+      <a class="abutton" @click="removeCart()">Empty Cart</a>
     </div>
 
-    <div class="bigtext right-align sumcount" id="sum_p_num">상품갯수: 4개</div>
+    <div class="bigtext right-align sumcount" id="sum_p_num">Product Count: {{allCount}}</div>
     <div class="bigtext right-align box blue summoney" id="sum_p_price">
-      합계금액: 74,200원
+      Total Price: {{'$'+allPrice}}
     </div>
 
     <div id="goorder" class="">
       <div class="clear"></div>
       <div class="buttongroup center-align cmd">
-        <a href="javascript:void(0);">선택한 상품 주문</a>
+        <a href="#/" @click="order()">Order Selected Products</a>
       </div>
     </div>
   </form>
@@ -246,6 +87,100 @@
 
 <script>
 export default {
-  name: 'OrderForm'
+  name: 'OrderForm',
+  data () {
+    return {
+      cart: [],
+      products: [],
+      checkedNames: [],
+      productsCount: [],
+      allCount: 0,
+      allPrice: 0
+    }
+  },
+  mounted () {
+    this.cart = localStorage.getItem('ShoppingCart')
+    this.searchProducts()
+  },
+  methods: {
+    removeCart: function () {
+      localStorage.setItem('ShoppingCart', null)
+      localStorage.setItem('productsCount', null)
+      this.products = []
+      this.checkedNames = []
+      this.productsCount = []
+      this.allCount = 0
+      this.allPrice = 0
+    },
+    searchProducts: function () {
+      // using JSONPlaceholder
+      const baseURI = `//0100.ga:3000/api/products/${this.cart}`
+      this.$http.get(`${baseURI}`).then((result) => {
+        this.products = result.data
+        // this.posts = result.data
+        result.data.forEach(el => {
+          this.checkedNames.push(el.products_id)
+          this.productsCount[el.products_id] = 1
+        })
+        if (JSON.parse(localStorage.getItem('productsCount'))) {
+          this.productsCount = JSON.parse(localStorage.getItem('productsCount'))
+        }
+        this.productsCount.forEach(e => {
+          this.allCount += e
+        })
+        this.setAllPrice()
+      })
+    },
+    selectRemove: function () {
+      this.products.forEach(item => {
+        if (this.checkedNames.includes(item.products_id)) {
+          setTimeout(() => {
+            this.removeProduct(item)
+          }, 0)
+        }
+      })
+    },
+    removeProduct: function (item) {
+      this.products.splice(this.products.findIndex(e => e.products_id === item.products_id), 1)
+      this.cart = JSON.parse(localStorage.getItem('ShoppingCart'))
+      this.cart.splice(this.cart.findIndex(e => e === item.products_id), 1)
+      if (this.cart.length === 0) {
+        localStorage.setItem('ShoppingCart', null)
+        localStorage.setItem('productsCount', null)
+      } else {
+        localStorage.setItem('ShoppingCart', JSON.stringify(this.cart))
+        localStorage.setItem('productsCount', JSON.stringify(this.productsCount))
+      }
+      if (this.checkedNames.includes(item.products_id)) {
+        this.checkedNames.splice(this.checkedNames.findIndex(e => e === item.products_id), 1)
+      }
+      delete this.productsCount[item.products_id]
+      this.allCount -= 1
+      this.setAllPrice()
+    },
+    setProductCount: function ($event, idx, el) {
+      this.productsCount[idx] += el
+      $event.target.parentNode.parentNode.querySelector('input').value = this.productsCount[idx]
+      $event.target.parentNode.parentNode.parentNode.parentNode.querySelector('.sum').innerText = '$' + (this.products[this.products.findIndex(e => e.products_id === idx)].products_price.replace('$', '') * this.productsCount[idx])
+      this.allCount += el
+      this.setAllPrice()
+      localStorage.setItem('productsCount', JSON.stringify(this.productsCount))
+    },
+    changeValue ($event, idx) {
+      this.productsCount[+$event.target.attributes._id.value] = +$event.target.value
+      $event.target.parentNode.parentNode.parentNode.querySelector('.sum').innerText = '$' + (this.products[this.products.findIndex(e => e.products_id === +$event.target.attributes._id.value)].products_price.replace('$', '') * this.productsCount[+$event.target.attributes._id.value])
+      localStorage.setItem('productsCount', JSON.stringify(this.productsCount))
+    },
+    setAllPrice () {
+      let price = 0
+      this.products.forEach(e => {
+        price += ((+e.products_price.replace('$', '')) * this.productsCount[e.products_id])
+      })
+      this.allPrice = price
+    },
+    order () {
+      this.removeCart()
+    }
+  }
 }
 </script>
